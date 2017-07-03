@@ -1007,6 +1007,7 @@ namespace WebSocketSharp
       } catch (Exception ex0) {
         _logger.Error (ex0.ToString ());
         error ("An error has occurred during the closing handshake.", ex0);
+        return;
       }
       _logger.Trace ("End closing the connection.");
 
