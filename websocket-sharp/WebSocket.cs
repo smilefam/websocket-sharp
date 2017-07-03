@@ -999,9 +999,15 @@ namespace WebSocketSharp
 
       _logger.Trace ("Begin closing the connection.");
 
-      var res = closeHandshake (payloadData, send, receive, received);
-      releaseResources ();
 
+      var res = false;
+      try {
+        res = closeHandshake (payloadData, send, receive, received);
+        releaseResources ();
+      } catch (Exception ex0) {
+        _logger.Error (ex0.ToString ());
+        error ("An error has occurred during the closing handshake.", ex0);
+      }
       _logger.Trace ("End closing the connection.");
 
       _readyState = WebSocketState.Closed;
